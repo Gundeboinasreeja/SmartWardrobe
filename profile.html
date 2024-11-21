@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wardrobe Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: pink;
+            padding: 20px;
+            position: relative;
+        }
+
+        .profile {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .user-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid #333;
+            cursor: pointer;
+        }
+
+        .user-info {
+            display: none;
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background-color: white;
+            border: 1px solid #333;
+            padding: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        .user-info p {
+            margin: 0;
+            padding: 0;
+        }
+
+        .user-info button {
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile" onclick="toggleUserInfo()">
+        <img src="https://static-00.iconduck.com/assets.00/user-icon-2048x2048-ihoxz4vq.png" alt="User Icon" class="user-icon">
+        <div id="userInfo" class="user-info">
+            <p>UserName/Email: <span id="username">Mounika</span></p>
+            <button onclick="editUsername(event)">Edit Username</button>
+        </div>
+    </div>
+
+    <script>
+        function toggleUserInfo() {
+            const userInfo = document.getElementById('userInfo');
+            userInfo.style.display = userInfo.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function editUsername(event) {
+            event.stopPropagation(); // Prevents toggleUserInfo from closing userInfo when editing
+            const newUsername = prompt("Enter new username:", document.getElementById('username').textContent);
+            if (newUsername) {
+                document.getElementById('username').textContent = newUsername;
+            }
+        }
+
+        // Close user info when clicking outside of it
+        document.addEventListener('click', function(event) {
+            const userInfo = document.getElementById('userInfo');
+            const profile = document.querySelector('.profile');
+            if (!profile.contains(event.target)) {
+                userInfo.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

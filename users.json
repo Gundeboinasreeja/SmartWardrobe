@@ -1,0 +1,22 @@
+[
+  {
+    "email": "test@example.com",
+    "password": "$2b$10$EIX...hashed_password_here..."
+  },
+  {
+    "email": "test@example.com",
+    "password": "$2b$10$cdCWlXTE8tjtrP4dYpLOZuqfc47UWWguq8kOzY/q7H3I/dG..YldC"
+  },
+  {
+    "email": "rmamavathmounika2003@gmail.com",
+    "password": "mouni@123"
+  },
+  {
+    "email": "test@example.com",
+    "password": "$2b$10$XeFklOhjlq0Jrqlgz2wa1Oumlu/CdBwGu48BuIVJjWmTRl6Rnt/pG"
+  },
+  {
+    "email": "rmamavathmounika20032gmail.com",
+    "password": "$2b$10$XhTb1G03OIlEkX9HHIHrBOkyPr4D996SzTbtQ.Gr7jSc9U1v2br4G"
+  }
+]

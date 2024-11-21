@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register & Login</title>
+  <style>
+    /* Global styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Arial", sans-serif;
+    }
+
+    body {
+      background-color: #121212;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #1f1f1f, #333);
+    }
+
+    .wrapper {
+      width: 400px;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    h1 {
+      text-align: center;
+      color: #fff;
+      margin-bottom: 30px;
+      font-size: 32px;
+    }
+
+    .input-box {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .input-box input {
+      width: 100%;
+      padding: 15px;
+      background-color: #222;
+      border: 1px solid #444;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 16px;
+    }
+
+    .input-box input::placeholder {
+      color: #aaa;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 15px;
+      background-color: #FF5722;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #FF3D00;
+    }
+
+    .register-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .register-link a {
+      color: #FF5722;
+      text-decoration: none;
+    }
+
+    .register-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+    <form id="auth-form">
+      <h1 id="form-title">Register</h1>
+      <div class="input-box">
+        <input type="text" id="username" placeholder="Username" required>
+      </div>
+      <div class="input-box">
+        <input type="password" id="password" placeholder="Password" required>
+      </div>
+      <button type="submit" class="btn" id="submit-btn">Register</button>
+      <div class="register-link" id="login-link">
+        <p>Already have an account? <a href="javascript:void(0);" id="switch-to-login">Login</a></p>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // JavaScript functionality
+    const form = document.getElementById('auth-form');
+    const title = document.getElementById('form-title');
+    const submitBtn = document.getElementById('submit-btn');
+    const switchToLoginLink = document.getElementById('switch-to-login');
+    const loginLink = document.getElementById('login-link');
+
+    let isLoginForm = false;
+
+    // Switch between Register and Login form
+    switchToLoginLink.addEventListener('click', () => {
+      isLoginForm = true;
+      title.textContent = "Login";
+      submitBtn.textContent = "Login";
+      loginLink.innerHTML = '<p>Don\'t have an account? <a href="javascript:void(0);" id="switch-to-register">Register</a></p>';
+      document.getElementById('switch-to-register').addEventListener('click', switchToRegisterForm);
+    });
+
+    function switchToRegisterForm() {
+      isLoginForm = false;
+      title.textContent = "Register";
+      submitBtn.textContent = "Register";
+      loginLink.innerHTML = '<p>Already have an account? <a href="javascript:void(0);" id="switch-to-login">Login</a></p>';
+      document.getElementById('switch-to-login').addEventListener('click', () => {
+        isLoginForm = true;
+        title.textContent = "Login";
+        submitBtn.textContent = "Login";
+      });
+    }
+
+    // Handle form submission (Register or Login)
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      if (!username || !password) {
+        alert("Both fields are required!");
+        return;
+      }
+
+      // Check username length
+      if (username.length < 8) {
+        alert("Username must be at least 8 characters long.");
+        return;
+      }
+
+      // Check password strength
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      if (!passwordRegex.test(password)) {
+        alert("Password must be at least 8 characters, including an uppercase letter, a lowercase letter, a digit, and a special character.");
+        return;
+      }
+
+      let users = JSON.parse(localStorage.getItem("users")) || [];
+
+      if (isLoginForm) {
+        // Login
+        const user = users.find(user => user.username === username && user.password === password);
+        if (user) {
+          alert("Login successful!");
+          window.location.href = 'http://localhost:3000/index.html'; // Redirect to home page after login
+        } else {
+          alert("Invalid credentials! Please check your username and password.");
+        }
+      } else {
+        // Register
+        if (users.some(user => user.username === username)) {
+          alert("Username already exists! Please choose a different username.");
+          return;
+        }
+
+        users.push({ username, password });
+        localStorage.setItem("users", JSON.stringify(users));
+
+        alert("Registration successful! Please log in.");
+        switchToLoginForm(); // Switch to login form after successful registration
+      }
+    });
+  </script>
+</body>
+</html>

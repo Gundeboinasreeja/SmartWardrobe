@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wardrobe Management System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>WardrobeMaster</h2>
+        <a href="#" onclick="showSection('clothes')">Clothes</a>
+        <a href="#" onclick="showSection('bags')">Bags</a>
+        <a href="#" onclick="showSection('shoes')">Shoes</a>
+        <a href="#" onclick="showSection('jewelry')">Jewelry</a>
+        <a href="#" onclick="showSection('calendar')">Calendar</a>
+        <a href="#" onclick="showSection('shopping')">Shopping Apps</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <h1>Welcome to Your Wardrobe</h1>
+
+            <!-- Profile Icon Section -->
+            <div class="profile" onclick="toggleUserInfo()">
+                <img src="https://static-00.iconduck.com/assets.00/user-icon-2048x2048-ihoxz4vq.png" alt="User Icon" class="user-icon">
+                <div id="userInfo" class="user-info">
+                    <p>UserName/Email: <span id="username">Mounika</span></p>
+                    <button onclick="editUsername(event)">Edit Username</button>
+                    <button onclick="logout(event)">Logout</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dynamic Category Content -->
+        <div id="itemsContainer">
+            <div id="clothes" class="category-section">
+                <h3>Clothes</h3>
+                <input type="file" id="clothesFile">
+                <button onclick="uploadImage('clothes')">Upload</button>
+                <div id="clothesImages" class="image-container"></div>
+            </div>
+            <div id="bags" class="category-section">
+                <h3>Bags</h3>
+                <input type="file" id="bagsFile">
+                <button onclick="uploadImage('bags')">Upload</button>
+                <div id="bagsImages" class="image-container"></div>
+            </div>
+            <div id="shoes" class="category-section">
+                <h3>Shoes</h3>
+                <input type="file" id="shoesFile">
+                <button onclick="uploadImage('shoes')">Upload</button>
+                <div id="shoesImages" class="image-container"></div>
+            </div>
+            <div id="jewelry" class="category-section">
+                <h3>Jewelry</h3>
+                <input type="file" id="jewelryFile">
+                <button onclick="uploadImage('jewelry')">Upload</button>
+                <div id="jewelryImages" class="image-container"></div>
+            </div>
+
+            <!-- Calendar Section -->
+            <div id="calendar" class="category-section">
+                <h3>Outfit Tracker</h3>
+                <input type="date" id="outfitDate">
+                <button onclick="trackOutfit()">Track Outfit</button>
+                <div id="calendarEntries" class="calendar-entries"></div>
+            </div>
+
+            <!-- Shopping Apps Links Section -->
+            <div id="shopping" class="category-section">
+                <h3>Shopping Apps</h3>
+                <ul class="shopping-links">
+                    <li><a href="https://www.amazon.com" target="_blank">Amazon</a></li><br>
+                    <li><a href="https://www.flipkart.com" target="_blank">Flipkart</a></li><br>
+                    <li><a href="https://www.myntra.com" target="_blank">Myntra</a></li><br>
+                    <li><a href="https://www.ajio.com" target="_blank">Ajio</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Image Modal for Viewing Large Image -->
+        <div id="imageModal" class="modal" onclick="closeModal()">
+            <img id="modalImage" class="modal-content">
+            <div id="caption"></div>
+        </div>
+
+        <!-- Chatbot -->
+        <div class="chatbot">
+            <div class="chatbot-header">AI Chatbot</div>
+            <div class="chatbot-body" id="chatbotBody">
+                <p class="bot-message">Hi! How can I assist you with outfit suggestions?</p>
+            </div>
+            <div class="chatbot-input">
+                <input type="text" id="chatbotInput" placeholder="Type your message..." onkeypress="handleChatInput(event)">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+    <script src="http://localhost:3000/resizeUpload.js"></script>
+    <script src="scripts.js"></script>
+</body>
+</html>
